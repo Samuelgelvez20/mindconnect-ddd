@@ -40,3 +40,12 @@ Por ahora solo se crean las **52 tablas** del diagrama mediante migraciones.
 - `chat_participants`: CHECK para que no tenga paciente y profesional a la vez.
 - `chat_conversations.closed_by` queda como UUID sin FK (el diagrama no indica a qué tabla apunta).
 - Catálogos sin datos semilla (pendiente).
+
+## Base de datos con Docker (opcional)
+```bash
+docker run -d --name mindconnect-postgres \
+  -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=123456 \
+  -e POSTGRES_DB=mindconnectdb -p 5434:5432 postgres:16
+```
+La app usa `localhost:5434` (ver `application-dev.yml`) y corre en el puerto `8082`.
+Si usas un PostgreSQL propio, ajusta `url`, `username` y `password` en ese archivo.
