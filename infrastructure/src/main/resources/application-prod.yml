@@ -1,0 +1,30 @@
+# Perfil de produccion: todo viene de variables de entorno.
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    properties:
+      hibernate:
+        "[physical_naming_strategy]": org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        "[default_schema]": mindconnect_schema
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    create-schemas: true
+    schemas:
+      - mindconnect_schema
+    default-schema: mindconnect_schema
+    table: flyway_schema_history_mindconnect
+    placeholders:
+      db_schema: mindconnect_schema
+
+server:
+  port: ${PORT:8081}
