@@ -32,12 +32,6 @@ public class PatientContactJpaEntity {
     @Column(name = "relationship_type_id", nullable = false)
     private UUID relationshipTypeId;
 
-    @Column(name = "created_at", nullable = false)
-    private Instant createdAt;
-
-    @Column(name = "updated_at", nullable = false)
-    private Instant updatedAt;
-
     public PatientContactJpaEntity() {
     }
 
@@ -87,21 +81,5 @@ public class PatientContactJpaEntity {
 
     public void setRelationshipTypeId(UUID relationshipTypeId) {
         this.relationshipTypeId = relationshipTypeId;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Instant getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
     }
 }

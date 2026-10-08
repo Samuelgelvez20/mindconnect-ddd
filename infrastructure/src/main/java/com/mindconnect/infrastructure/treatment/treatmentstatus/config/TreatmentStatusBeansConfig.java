@@ -9,6 +9,7 @@ import com.mindconnect.application.treatment.treatmentstatus.usecase.ListTreatme
 import com.mindconnect.application.treatment.treatmentstatus.usecase.RegisterTreatmentStatusUseCase;
 import com.mindconnect.application.treatment.treatmentstatus.usecase.UpdateTreatmentStatusUseCase;
 import com.mindconnect.domain.treatment.treatmentstatus.port.repository.TreatmentStatusRepository;
+import com.mindconnect.infrastructure.treatment.treatmentstatus.adapters.out.persistence.mappers.TreatmentStatusPersistenceMapper;
 import com.mindconnect.infrastructure.treatment.treatmentstatus.adapters.out.persistence.repositories.TreatmentStatusJpaRepository;
 import com.mindconnect.infrastructure.treatment.treatmentstatus.adapters.out.persistence.repositories.TreatmentStatusRepositoryAdapter;
 
@@ -16,8 +17,15 @@ import com.mindconnect.infrastructure.treatment.treatmentstatus.adapters.out.per
 public class TreatmentStatusBeansConfig {
 
     @Bean
-    public TreatmentStatusRepository treatmentStatusRepository(TreatmentStatusJpaRepository jpaRepository) {
-        return new TreatmentStatusRepositoryAdapter(jpaRepository);
+    public TreatmentStatusPersistenceMapper treatmentStatusPersistenceMapper() {
+        return new TreatmentStatusPersistenceMapper();
+    }
+
+    @Bean
+    public TreatmentStatusRepository treatmentStatusRepository(
+            TreatmentStatusJpaRepository jpaRepository,
+            TreatmentStatusPersistenceMapper mapper) {
+        return new TreatmentStatusRepositoryAdapter(jpaRepository, mapper);
     }
 
     @Bean

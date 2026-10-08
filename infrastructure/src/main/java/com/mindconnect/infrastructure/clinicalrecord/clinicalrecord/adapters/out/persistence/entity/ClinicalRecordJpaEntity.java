@@ -41,9 +41,6 @@ public class ClinicalRecordJpaEntity {
     @Column(name = "created_by", nullable = false)
     private UUID createdBy;
 
-    @Column(name = "updated_at", nullable = false)
-    private Instant updatedAt;
-
     public ClinicalRecordJpaEntity() {
     }
 
@@ -117,13 +114,5 @@ public class ClinicalRecordJpaEntity {
 
     public void setCreatedBy(UUID createdBy) {
         this.createdBy = createdBy;
-    }
-
-    public Instant getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
     }
 }

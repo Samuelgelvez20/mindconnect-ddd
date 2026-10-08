@@ -8,12 +8,13 @@ public record UpdateRiskLevelCommand(
         RiskLevelId id,
         String code,
         String name,
-        boolean active,
+        Boolean active,
         int severity) {
 
     public UpdateRiskLevelCommand {
         Objects.requireNonNull(id, "id must not be null");
         Objects.requireNonNull(code, "code must not be null");
         Objects.requireNonNull(name, "name must not be null");
+        Objects.requireNonNull(active, "active must not be null");
     }
 }

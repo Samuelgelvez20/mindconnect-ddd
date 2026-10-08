@@ -1,5 +1,7 @@
 package com.mindconnect.infrastructure.clinicalrecord.clinicalrecord.adapters.out.persistence.mappers;
 
+import java.time.Instant;
+
 import com.mindconnect.domain.clinicalrecord.clinicalrecord.model.aggregate.ClinicalRecord;
 import com.mindconnect.domain.clinicalrecord.clinicalrecord.model.valueobject.ClinicalRecordId;
 import com.mindconnect.domain.clinicalrecord.clinicalrecordstatus.model.valueobject.ClinicalRecordStatusId;
@@ -24,7 +26,6 @@ public class ClinicalRecordPersistenceMapper {
         jpa.setStatusId(domain.statusId().value());
         jpa.setCreatedAt(domain.createdAt());
         jpa.setCreatedBy(domain.createdBy().value());
-        jpa.setUpdatedAt(domain.updatedAt());
         return jpa;
     }
 
@@ -33,6 +34,7 @@ public class ClinicalRecordPersistenceMapper {
             return null;
         }
 
+        Instant updatedAt = jpa.getCreatedAt(); // fallback: V18 has no updated_at column
         return ClinicalRecord.restore(
                 new ClinicalRecordId(jpa.getId()),
                 new PatientId(jpa.getPatientId()),
@@ -43,7 +45,7 @@ public class ClinicalRecordPersistenceMapper {
                 new ClinicalRecordStatusId(jpa.getStatusId()),
                 new ProfessionalId(jpa.getCreatedBy()),
                 jpa.getCreatedAt(),
-                jpa.getUpdatedAt()
+                updatedAt
         );
     }
 }

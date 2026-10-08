@@ -9,6 +9,7 @@ import com.mindconnect.application.treatment.treatmentgoalstatus.usecase.ListTre
 import com.mindconnect.application.treatment.treatmentgoalstatus.usecase.RegisterTreatmentGoalStatusUseCase;
 import com.mindconnect.application.treatment.treatmentgoalstatus.usecase.UpdateTreatmentGoalStatusUseCase;
 import com.mindconnect.domain.treatment.treatmentgoalstatus.port.repository.TreatmentGoalStatusRepository;
+import com.mindconnect.infrastructure.treatment.treatmentgoalstatus.adapters.out.persistence.mappers.TreatmentGoalStatusPersistenceMapper;
 import com.mindconnect.infrastructure.treatment.treatmentgoalstatus.adapters.out.persistence.repositories.TreatmentGoalStatusJpaRepository;
 import com.mindconnect.infrastructure.treatment.treatmentgoalstatus.adapters.out.persistence.repositories.TreatmentGoalStatusRepositoryAdapter;
 
@@ -16,8 +17,15 @@ import com.mindconnect.infrastructure.treatment.treatmentgoalstatus.adapters.out
 public class TreatmentGoalStatusBeansConfig {
 
     @Bean
-    public TreatmentGoalStatusRepository treatmentGoalStatusRepository(TreatmentGoalStatusJpaRepository jpaRepository) {
-        return new TreatmentGoalStatusRepositoryAdapter(jpaRepository);
+    public TreatmentGoalStatusPersistenceMapper treatmentGoalStatusPersistenceMapper() {
+        return new TreatmentGoalStatusPersistenceMapper();
+    }
+
+    @Bean
+    public TreatmentGoalStatusRepository treatmentGoalStatusRepository(
+            TreatmentGoalStatusJpaRepository jpaRepository,
+            TreatmentGoalStatusPersistenceMapper mapper) {
+        return new TreatmentGoalStatusRepositoryAdapter(jpaRepository, mapper);
     }
 
     @Bean

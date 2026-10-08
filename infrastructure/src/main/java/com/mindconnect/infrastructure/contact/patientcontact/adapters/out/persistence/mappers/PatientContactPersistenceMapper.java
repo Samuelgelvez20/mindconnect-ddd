@@ -1,5 +1,7 @@
 package com.mindconnect.infrastructure.contact.patientcontact.adapters.out.persistence.mappers;
 
+import java.time.Instant;
+
 import com.mindconnect.domain.contact.patientcontact.model.aggregate.PatientContact;
 import com.mindconnect.domain.contact.patientcontact.model.valueobject.PatientContactId;
 import com.mindconnect.domain.contact.contact.model.valueobject.ContactId;
@@ -21,8 +23,6 @@ public class PatientContactPersistenceMapper {
         jpa.setPrimaryContact(domain.isPrimaryContact());
         jpa.setEmergencyContact(domain.isEmergencyContact());
         jpa.setRelationshipTypeId(domain.relationshipTypeId().value());
-        jpa.setCreatedAt(domain.createdAt());
-        jpa.setUpdatedAt(domain.updatedAt());
         return jpa;
     }
 
@@ -31,6 +31,7 @@ public class PatientContactPersistenceMapper {
             return null;
         }
 
+        Instant now = Instant.now(); // reconstruction values: V12 has no created_at/updated_at columns
         return PatientContact.restore(
                 new PatientContactId(jpa.getId()),
                 new ContactId(jpa.getContactId()),
@@ -38,8 +39,8 @@ public class PatientContactPersistenceMapper {
                 jpa.isPrimaryContact(),
                 jpa.isEmergencyContact(),
                 new RelationshipTypeId(jpa.getRelationshipTypeId()),
-                jpa.getCreatedAt(),
-                jpa.getUpdatedAt()
+                now,
+                now
         );
     }
 }
