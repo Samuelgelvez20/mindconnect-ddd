@@ -1,0 +1,40 @@
+package com.mindconnect.infrastructure.chat.chatescalation.adapters.out.persistence.mappers;
+
+import com.mindconnect.domain.chat.chatescalation.model.aggregate.ChatEscalation;
+import com.mindconnect.domain.chat.chatescalation.model.valueobject.ChatEscalationId;
+import com.mindconnect.domain.chat.chatconversation.model.valueobject.ChatConversationId;
+import com.mindconnect.domain.chat.chatescalationstatus.model.valueobject.ChatEscalationStatusId;
+import com.mindconnect.infrastructure.chat.chatescalation.adapters.out.persistence.entity.ChatEscalationJpaEntity;
+
+public class ChatEscalationPersistenceMapper {
+
+    public ChatEscalationJpaEntity toJpa(ChatEscalation domain) {
+        if (domain == null) {
+            return null;
+        }
+
+        ChatEscalationJpaEntity jpa = new ChatEscalationJpaEntity();
+        jpa.setId(domain.id().value());
+        jpa.setConversationId(domain.conversationId().value());
+        jpa.setStatusId(domain.statusId().value());
+        jpa.setFromAi(domain.fromAi());
+        jpa.setReason(domain.reason());
+        jpa.setCreatedAt(domain.createdAt());
+        return jpa;
+    }
+
+    public ChatEscalation toDomain(ChatEscalationJpaEntity jpa) {
+        if (jpa == null) {
+            return null;
+        }
+
+        return ChatEscalation.restore(
+                new ChatEscalationId(jpa.getId()),
+                new ChatConversationId(jpa.getConversationId()),
+                new ChatEscalationStatusId(jpa.getStatusId()),
+                jpa.isFromAi(),
+                jpa.getReason(),
+                jpa.getCreatedAt(),
+                jpa.getCreatedAt());
+    }
+}

@@ -1,0 +1,21 @@
+package com.mindconnect.infrastructure.ai.aiprovider.adapters.out.persistence.repositories;
+
+import java.util.Optional;
+import java.util.UUID;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import com.mindconnect.infrastructure.ai.aiprovider.adapters.out.persistence.entity.AiProviderJpaEntity;
+
+@Repository
+public interface AiProviderJpaRepository extends JpaRepository<AiProviderJpaEntity, UUID> {
+
+    @Query("SELECT CASE WHEN COUNT(e) > 0 THEN true ELSE false END FROM AiProviderJpaEntity e WHERE e.name = :name")
+    boolean existsByName(@Param("name") String name);
+
+    @Query("SELECT CASE WHEN COUNT(e) > 0 THEN true ELSE false END FROM AiProviderJpaEntity e WHERE e.name = :name AND e.id <> :id")
+    boolean existsByNameAndIdNot(@Param("name") String name, @Param("id") UUID id);
+}

@@ -18,5 +18,17 @@
             <artifactId>domain</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.mindconnect</groupId>
+            <artifactId>domain</artifactId>
+            <version>${project.version}</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>

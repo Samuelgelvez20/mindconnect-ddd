@@ -1,0 +1,14 @@
+package com.mindconnect.infrastructure.referencedata.stateregion.adapters.out.persistence.repositories;
+
+import java.util.UUID;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.mindconnect.infrastructure.referencedata.stateregion.adapters.out.persistence.entity.StateRegionJpaEntity;
+
+public interface StateRegionJpaRepository extends JpaRepository<StateRegionJpaEntity, UUID> {
+
+    boolean existsByCountryIdAndCode(UUID countryId, String code);
+
+    boolean existsByCountryIdAndCodeAndIdNot(UUID countryId, String code, UUID id);
+}

@@ -1,0 +1,15 @@
+package com.mindconnect.domain.contact.relationshiptype.event;
+
+import java.time.Instant;
+import java.util.Objects;
+
+import com.mindconnect.domain.common.event.DomainEvent;
+import com.mindconnect.domain.contact.relationshiptype.model.valueobject.RelationshipTypeId;
+
+public record RelationshipTypeRegisteredEvent(RelationshipTypeId id, Instant occurredOn) implements DomainEvent {
+
+    public RelationshipTypeRegisteredEvent {
+        Objects.requireNonNull(id, "id must not be null");
+        Objects.requireNonNull(occurredOn, "occurredOn must not be null");
+    }
+}
